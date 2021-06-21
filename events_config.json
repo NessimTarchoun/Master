@@ -1,0 +1,405 @@
+{
+    "main_classes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+    ],
+    "1": {
+        "designation": "Arithmetic operations",
+        "color": "red",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    },
+    "2": {
+        "designation": "Memory operations",
+        "color": "green",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    },
+    "3": {
+        "designation": "DATA I/O",
+        "color": "yellow",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    },
+    "4": {
+        "designation": "System operations",
+        "color":"magneta",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    },
+    "5": {
+        "designation": "Security operations",
+        "color":"black",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    },
+    "6": {
+        "designation": "Debugging events",
+        "color":"cyan",
+        "operations": {
+            "0": {
+                "designation": "event 0",
+                "data-width": 32
+            },
+            "1": {
+                "designation": "event 1",
+                "data-width": 64
+            },
+            "2": {
+                "designation": "event 2",
+                "data-width": 32
+            },
+            "3": {
+                "designation": "event 3",
+                "data-width": 64
+            },
+            "4": {
+                "designation": "event 4",
+                "data-width": 32
+            },
+            "5": {
+                "designation": "event 5",
+                "data-width": 64
+            },
+            "6": {
+                "designation": "event 6",
+                "data-width": 32
+            },
+            "7": {
+                "designation": "event 7",
+                "data-width": 64
+            },
+            "8": {
+                "designation": "event 8",
+                "data-width": 64
+            },
+            "9": {
+                "designation": "event 9",
+                "data-width": 64
+            },
+            "A": {
+                "designation": "event A",
+                "data-width": 64
+            },
+            "B": {
+                "designation": "event B",
+                "data-width": 64
+            },
+            "C": {
+                "designation": "event C",
+                "data-width": 32
+            },
+            "D": {
+                "designation": "event D",
+                "data-width": 32
+            },
+            "E": {
+                "designation": "event E",
+                "data-width": 64
+            },
+            "F": {
+                "designation": "event F",
+                "data-width": 32
+            }
+        }
+    },
+    "7": {
+        "designation": "Interruptions",
+        "color":"blue",
+        "operations": {
+            "0": {
+                "designation": "event 0"
+            },
+            "1": {
+                "designation": "event 1"
+            },
+            "2": {
+                "designation": "event 2"
+            },
+            "3": {
+                "designation": "event 3"
+            },
+            "4": {
+                "designation": "event 4"
+            },
+            "5": {
+                "designation": "event 5"
+            },
+            "6": {
+                "designation": "event 6"
+            },
+            "7": {
+                "designation": "event 7"
+            },
+            "8": {
+                "designation": "event 8"
+            },
+            "9": {
+                "designation": "event 9"
+            },
+            "A": {
+                "designation": "event A"
+            },
+            "B": {
+                "designation": "event B"
+            },
+            "C": {
+                "designation": "event C"
+            },
+            "D": {
+                "designation": "event D"
+            },
+            "E": {
+                "designation": "event E"
+            },
+            "F": {
+                "designation": "event F"
+            }
+        }
+    }
+}
