@@ -20,11 +20,11 @@ def type_of_operation(E):
     return(classs, typee)
 
 
-def extract_data(c):
+def extract_data(buffer):
     import struct
     #from pathlib import Path
     list_of_classes = initialise_list_of_events()
-    size_of_file = len(c)
+    size_of_file = len(buffer)
 
     list_of_events = []
     i = 0
@@ -34,15 +34,15 @@ def extract_data(c):
         # try:
         data = ''
 
-        b1 = struct.unpack('B', c[i:i + 1])[0]
+        b1 = struct.unpack('B', buffer[i:i + 1])[0]
 
-        t2 = struct.unpack('>B', c[i + 1:i + 2])[0]
-        t3 = struct.unpack('>B', c[i + 2:i + 3])[0]
-        t4 = struct.unpack('>B', c[i + 3:i + 4])[0]
-        t5 = struct.unpack('>B', c[i + 4:i + 5])[0]
-        t6 = struct.unpack('>B', c[i + 5:i + 6])[0]
-        t7 = struct.unpack('>B', c[i + 6:i + 7])[0]
-        t8 = struct.unpack('>B', c[i + 7:i + 8])[0]
+        t2 = struct.unpack('>B', buffer[i + 1:i + 2])[0]
+        t3 = struct.unpack('>B', buffer[i + 2:i + 3])[0]
+        t4 = struct.unpack('>B', buffer[i + 3:i + 4])[0]
+        t5 = struct.unpack('>B', buffer[i + 4:i + 5])[0]
+        t6 = struct.unpack('>B', buffer[i + 5:i + 6])[0]
+        t7 = struct.unpack('>B', buffer[i + 6:i + 7])[0]
+        t8 = struct.unpack('>B', buffer[i + 7:i + 8])[0]
         timestamp = struct.unpack('>Q', struct.pack(
             '>8B', t0, t2, t3, t4, t5, t6, t7, t8))[0]
         i += 8
@@ -58,10 +58,10 @@ def extract_data(c):
                 8)  # number of bytes to consider
 
             if data_bytes == 4:
-                data = struct.unpack('>L', c[i:i + 4])[0]
+                data = struct.unpack('>L', buffer[i:i + 4])[0]
                 i += 4
             elif data_bytes == 8:
-                data = struct.unpack('>Q', c[i:i + 8])[0]
+                data = struct.unpack('>Q', buffer[i:i + 8])[0]
                 i += 8
 
         list_of_events.append(Event(b1 // 16, b1 % 16, timestamp, data))

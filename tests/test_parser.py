@@ -1,40 +1,44 @@
+from event_parser.helpers import *
+from event_parser.parsers import *
 import unittest
 
 import sys
 import os
-sys.path.append (os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+sys.path.append(
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            os.path.pardir)))
 
-from event_parser.parsers import *
-from event_parser.helpers import *
 
 class ParserTestSuite(unittest.TestCase):
     """ Test cases regaring event log parser """
 
     def test_simple_test(self):
-        buff= read_data("tests/event_stream1.bin")
-        list_of_classs = initialise_list_of_events() ['main_classes']
+        buff = read_data("tests/event_stream1.bin")
+        list_of_classs = initialise_list_of_events()['main_classes']
 
         # Parse single event, [0] gets the first element of the returned list
         e = extract_data(buff)[0]
         self.assertTrue(e.c in list_of_classs, "Unexpected class.")
-        self.assertTrue(e.o in range(16) , "Unexpected operation.")
+        self.assertTrue(e.o in range(16), "Unexpected operation.")
         self.assertNotEqual(e.t, 0, "Unexpected timestamp.")
 
-    def test_advanced_test(self):
-        buff= read_data("tests/event_stream1.bin")
+    def test_debugging_event_data_width_defined(self):
+        buff = read_data("tests/event_stream1.bin")
         list_of_classs = initialise_list_of_events()
         e = extract_data(buff)[0]
+
+        # for i in range(0, 16):
+        #   e = extract_data(b"\xED{}\x23".format(bytes(i)))[0]
+        #  self.assertEqual(e.c, i)
        # print(e.c , e.o)
 
-        if e.c== 6:
-                self.assertIsNotNone (e.data,list_of_classs['6']['operations'][str(e.c)]['data-width'])
-
-
-
+        if e.c == 6:
+            self.assertIsNotNone(
+                e.data, list_of_classs['6']['operations'][str(e.c)]['data-width'])
 
 
     # Add more tests here
-
-
 if __name__ == "__main__":
     unittest.main()
