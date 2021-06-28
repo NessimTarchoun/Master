@@ -3,7 +3,7 @@ from API.api_helpers import *
 import json
 
 def showMenu():
-    print ("\nExample menu")
+    print ("\nMenu:")
     print ("-----------------")
     print ("1) all operations in the binary file")
     print ("2) operations of a specific class")
