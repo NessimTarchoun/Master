@@ -67,6 +67,7 @@ def extract_data(buffer):
         list_of_events.append(Event(b1 // 16, b1 % 16, timestamp, data))
         # except:
      #   pass
+    list_of_events=sorted(list_of_events, key= lambda i: i.t)
     return(list_of_events)
 
 
@@ -88,13 +89,21 @@ def formatted_display(list_of_events):
             tablefmt="pretty"))
 
 
-def research_of_a_specific_class(class_designator):
+def research_of_a_specific_class(file_path, class_designator):
     wanted_type_of_operation = []
-    list_of_events = extract_data()
+    list_of_events = extract_data(read_data(file_path))
     for i in list_of_events:
         if i.c == class_designator:
             wanted_type_of_operation.append(i)
     return(wanted_type_of_operation)
+
+def events_between_two_timetamps(file_path, ts1, ts2):
+    wanted_type_of_operation = []
+    for i in extract_data(read_data(file_path)):
+        if (i.t <= ts2) & (i.t >= ts1):
+            wanted_type_of_operation.append(i)
+    return(wanted_type_of_operation)
+
 
 
 def percentage_of_class(class_designator, file_path):
