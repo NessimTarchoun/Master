@@ -35,7 +35,6 @@ def api_searching_by_id():
                 common_list.append(events[str(i)])
         return (json.dumps(common_list))
     
-    
     if 'id' in request.args:
         wanted_class = int(request.args['id'])
         id_list=[]
