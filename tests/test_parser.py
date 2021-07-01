@@ -1,14 +1,10 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
+
 from event_parser.helpers import *
 from event_parser.parsers import *
 import unittest
-
-import sys
-import os
-sys.path.append(
-    os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            os.path.pardir)))
 
 
 class ParserTestSuite(unittest.TestCase):
@@ -29,16 +25,10 @@ class ParserTestSuite(unittest.TestCase):
         list_of_classs = initialise_list_of_events()
         e = extract_data(buff)[0]
 
-        # for i in range(0, 16):
-        #   e = extract_data(b"\xED{}\x23".format(bytes(i)))[0]
-        #  self.assertEqual(e.c, i)
-       # print(e.c , e.o)
-
         if e.c == 6:
             self.assertIsNotNone(
                 e.data, list_of_classs['6']['operations'][str(e.c)]['data-width'])
 
 
-    # Add more tests here
 if __name__ == "__main__":
     unittest.main()

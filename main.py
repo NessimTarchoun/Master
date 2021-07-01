@@ -1,6 +1,5 @@
 from event_parser.parsers import *
 from API.api_helpers import *
-import json
 
 def showMenu():
     print ("\nMenu:")
@@ -10,8 +9,6 @@ def showMenu():
     print ("3) operations between two timestamps\n")
     choice=int(input("Enter your choice: "))
     return choice
-
-
 
 def main():
    choice = showMenu()

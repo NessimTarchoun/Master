@@ -8,17 +8,9 @@ import json
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-
 @app.route('/', methods=['GET'])
 def home():
     return '''<h1>Event log API</h1>'''
-
-# A route to return all of the available entries in our catalog.
-#@app.route('/events/', methods=['GET'])
-#def api_all():
-#    with open('events.json') as json_file:
-  #      extracted_events=json.load(json_file)
- #   return (extracted_events)
 
 @app.route('/events/', methods=['GET'])
 def api_searching_by_id():
