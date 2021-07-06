@@ -8,14 +8,14 @@ class Event:
         self.data = data
 
 
-def initialise_list_of_events():
-    # argument for file
+def initialise_list_of_events(config_file):
     import json
-    with open('events_config.json') as f:
+    with open(config_file) as f:
         return (json.load(f))
-
 
 def read_data(file_path):
     with open(file_path, 'rb') as file:
         bufferr = file.read()
     return(bufferr)
+
+print (initialise_list_of_events('../events_config.json')['main_classes'])

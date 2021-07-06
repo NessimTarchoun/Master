@@ -1,13 +1,5 @@
 {
-    "main_classes": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-    ],
+    "main_classes": [1,2,3,4,5,6,7],
     "1": {
         "designation": "Arithmetic operations",
         "color": "red",
