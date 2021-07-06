@@ -2,9 +2,18 @@ import sys
 import os
 import json
 import numpy as np
-from numpy.core.numeric import NaN
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
 from event_parser.parsers import *
+
+from os import environ
+
+def suppress_qt_warnings():
+    environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    environ["QT_SCALE_FACTOR"] = "1"
+
 
 def write_operations_in_json_file(binary_file_path, json_file_name):
     import json
@@ -24,7 +33,7 @@ def write_operations_in_json_file(binary_file_path, json_file_name):
 
 def occurence_of_event(filename, classs=None, operation=None, ts1=None, ts2=None):
     from tabulate import tabulate 
-
+    suppress_qt_warnings()
     with open(filename) as json_file:
         events=json.load(json_file)
     
@@ -37,12 +46,12 @@ def occurence_of_event(filename, classs=None, operation=None, ts1=None, ts2=None
         for i in range (len(target_list_of_events)):
             if target_list_of_events[i]["class_of_operation"]== classs:
                 count+=1
-        print ("wanted class",classs,"percentage:",count,'/',len(target_list_of_events) ,'==', round (count/len(target_list_of_events),2))
+        #print ("wanted class",classs,"percentage:",count,'/',len(target_list_of_events) ,'==', round (count/len(target_list_of_events),2))
     else:
         for i in range (len(target_list_of_events)):
             if target_list_of_events[i]["class_of_operation"]== classs and target_list_of_events[i]["operation"]==operation:
                 count+=1
-        print ("wanted class and ops",classs, operation, "percentage:",count,'/',len(target_list_of_events) ,'==', round (count/len(target_list_of_events),2))
+        #print ("wanted class and ops",classs, operation, "percentage:",count,'/',len(target_list_of_events) ,'==', round (count/len(target_list_of_events),2))
     #return(tabulate(target_list_of_events,tablefmt="pretty"))
     
     return(round(count/len(target_list_of_events),2))
@@ -116,17 +125,17 @@ def pie_appearancee_of_classs(filename, events_config_file, ts1=None, ts2=None):
 
     classs.append("costumer events")
     p.append(1 - sum (p))
-
+    percentages=[{"classs":classs[i],"percentage":p[i]} for i in range(len(p))]
     plt.figure(figsize=(20 , 10))
     plt.pie(p, labels = classs,pctdistance = 0.7, autopct = lambda p: str(round(p,2)) + '%',)
     plt.legend(loc="upper right", title= "Classes of events", bbox_to_anchor=(1, 0, 0.5, 1))
 
-    plt.show() 
-    #return (p)
+    #plt.show() 
+    return (percentages)
 
 
 #min('../events.json',12)
 #max('../events.json',8)
-pie_appearancee_of_classs('../events.json', '../events_config.json', ts1=None, ts2=None)
+print (pie_appearancee_of_classs('../events.json', '../events_config.json', ts1=None, ts2=None))
 #print(occurence_of_event('../events.json',classs=10,ts1=0, ts2=1000001273188791))
 #debugging_data('../events.json')
