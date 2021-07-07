@@ -54,7 +54,7 @@ def occurence_of_event(filename, classs=None, operation=None, ts1=None, ts2=None
         #print ("wanted class and ops",classs, operation, "percentage:",count,'/',len(target_list_of_events) ,'==', round (count/len(target_list_of_events),2))
     #return(tabulate(target_list_of_events,tablefmt="pretty"))
     
-    return(round(count/len(target_list_of_events),4))
+    return(target_list_of_events, round(count/len(target_list_of_events),4),count)
 
 def debugging_data(filename):
     from tabulate import tabulate
@@ -110,32 +110,35 @@ def max (filepath, *args):
                 print(i,events[str(i)])
                 break
 
-
-
             
 def occurence_of_classes(filename, events_config_file, ts1=None, ts2=None):
     import matplotlib.pyplot as plt
-    list_of_classs=(initialise_list_of_events('../events_config.json'))
+    list_of_classs=(initialise_list_of_events(events_config_file))
     classs=[]
     p=[]
+    occurence=[]
     
     for i in list_of_classs['main_classes']:
         classs.append(list_of_classs[str(i)]['designation'] )
-        p.append(occurence_of_event(filename, i,ts1,ts2))
-
+        p.append(occurence_of_event(filename, i,ts1,ts2)[1])
+        occurence.append(occurence_of_event(filename, i,ts1,ts2)[2])
+        
     classs.append("costumer events")
     p.append(1 - sum (p))
-    percentages=[{"classs":classs[i],"percentage":round(p[i]*100,2)} for i in range(len(p))]
-    plt.figure(figsize=(20 , 10))
-    plt.pie(p, labels = classs,pctdistance = 0.7, autopct = lambda p: str(round(p,2)) + '%',)
-    plt.legend(loc="upper right", title= "Classes of events", bbox_to_anchor=(1, 0, 0.5, 1))
+    occurence.append(len(occurence_of_event(filename, i,ts1,ts2)[0]) - sum(occurence) )
+
+    Stats=[{"classs":classs[i],"percentage":round(p[i]*100,2), "occurence":occurence[i]} for i in range(len(p))]
+    
+    #plt.figure(figsize=(20 , 10))
+    #plt.pie(p, labels = classs,pctdistance = 0.7, autopct = lambda p: str(round(p,2)) + '%',)
+    #plt.legend(loc="upper right", title= "Classes of events", bbox_to_anchor=(1, 0, 0.5, 1))
 
     #plt.show() 
-    return (percentages)
+    return(Stats)
 
 
 #min('../events.json',12)
 #max('../events.json',8)
-#print (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
-#print(occurence_of_event('../events.json',classs=10,ts1=0, ts2=1000001273188791))
+print (occurence_of_classes('../events.json', '../events_config.json', ts1=0, ts2=1000001273188791))
+#print(occurence_of_event('../events.json',classs=10,ts1=0, ts2=None))
 #debugging_data('../events.json')

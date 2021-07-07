@@ -47,17 +47,23 @@ def api_searching_by_id():
     else:
         return (json.dumps(events))
 
-
-
 @app.route('/pie')
 def pie():
     Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
     labels=[Data[i]['classs'] for i in range (len(Data))]
     values=[Data[i]['percentage'] for i in range (len(Data))]
-    colors = [
-    "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-    "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-    "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1","#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
     return render_template('./pie_chart.html', title='Bitcoin Monthly Price in USD', max=17000, set=zip(values, labels, colors[:len(values)]))
+
+@app.route('/bar')
+def bar():
+    Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
+    labels=[Data[i]['classs'] for i in range (len(Data))]
+    colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1","#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+
+    values=[Data[i]['percentage'] for i in range (len(Data))]
+    #colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1","#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    return render_template('./bar_chart.html', title='Occurence of Classes', max=60, colors=colors, labels=labels, values=values)
+
 
 app.run()
