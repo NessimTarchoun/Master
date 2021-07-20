@@ -92,6 +92,23 @@ def min (filepath, *args):
                 print(i,events[str(i)])
                 break
 
+def decode_JSON_events(jsonfilename):
+    event=[]
+    events_decoded=[]
+    with open(jsonfilename) as json_file:
+        events=json.load(json_file)
+    for i in range(len(events)):
+        event.append (Event(events[str(i)]["class_of_operation"],
+                            events[str(i)]["operation"],
+                            events[str(i)]["timestamp"],
+                            events[str(i)]["data"]))
+    for i in range(len(event)):
+        events_decoded.append((type_of_operation(event[i])[0],
+                            type_of_operation(event[i])[1],
+                            event[i].t,
+                            event[i].data))
+    
+    return(events_decoded)
 
 def max (filepath, *args):
     with open(filepath) as json_file:
@@ -139,6 +156,6 @@ def occurence_of_classes(filename, events_config_file, ts1=None, ts2=None):
 
 #min('../events.json',12)
 #max('../events.json',8)
-print (occurence_of_classes('../events.json', '../events_config.json', ts1=0, ts2=1000001273188791))
+#print (occurence_of_classes('../events.json', '../events_config.json', ts1=0, ts2=1000001273188791))
 #print(occurence_of_event('../events.json',classs=10,ts1=0, ts2=None))
 #debugging_data('../events.json')

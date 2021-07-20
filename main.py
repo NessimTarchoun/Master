@@ -1,5 +1,5 @@
 from event_parser.parsers import *
-from API.api_helpers import *
+from API.back_end import *
 
 def showMenu():
     print ("\nMenu:")
@@ -10,7 +10,7 @@ def showMenu():
     choice=int(input("Enter your choice: "))
     return choice
 
-def main():
+"""def main():
    choice = showMenu()
    if choice==1:
       formatted_display(  extract_data(read_data("tests/event_stream_2.bin"))) 
@@ -22,7 +22,10 @@ def main():
       t2=int(input("timestamp 2= "))
       formatted_display( events_between_two_timetamps("tests/event_stream_2.bin", t1, t2)) 
    #518356433086935, 1398450859550059)) 
-
-   
+"""
+def main():
+   #initialise_list_of_events('../events_config.json')
+   print(decode_JSON_events('./events.json'))
 if __name__ == "__main__":
    main()
+   

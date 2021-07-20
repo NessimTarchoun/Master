@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <style>
+
+body, .flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+body {
+	height: 100vh;
+	background-color: #ffffff;
+	background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+}
+.container {
+    margin-top: 10 cm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ </style>
+  <title>{{ title }}</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+</head>
+
+<body>
+  <center>
+    <h1>{{ title }}</h1>
+  </center>
+  <center>
+
+    <div class="container flex-center'">
+        
+<form method="post">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Post title"
+               class="form-control"
+               value={{ request.form['title'] or post['title'] }}>
+        </input>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" placeholder="Post content"
+                  class="form-control">{{ request.form['content'] or post['content'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+<hr>
+    </div>
+  </center>
+</body>
+</html>

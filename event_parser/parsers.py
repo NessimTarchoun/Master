@@ -2,7 +2,8 @@ from event_parser.helpers import *
 
 
 def type_of_operation(E):
-    list_of_classs = initialise_list_of_events()
+    list_of_classs = initialise_list_of_events('../events_config.json')
+
     if E.c in (list_of_classs['main_classes']):
         classs = list_of_classs[str(E.c)]['designation']
         if E.o > 9:
@@ -23,7 +24,7 @@ def type_of_operation(E):
 def extract_data(buffer):
     import struct
     #from pathlib import Path
-    list_of_classes = initialise_list_of_events()
+    list_of_classes = initialise_list_of_events('../events_config.json')
     size_of_file = len(buffer)
 
     list_of_events = []
@@ -46,7 +47,7 @@ def extract_data(buffer):
         timestamp = struct.unpack('>Q', struct.pack(
             '>8B', t0, t2, t3, t4, t5, t6, t7, t8))[0]
         i += 8
-
+    
         if (b1 // 16 == 6):  # (to deal with the debugging event)
             if (b1 % 16) > 9:
                 z = hex(b1 % 16)[2:].upper()
@@ -114,7 +115,7 @@ def percentage_of_class(class_designator, file_path):
 
 def pie_appearancee_of_operations():
     import matplotlib.pyplot as plt
-    list_of_classs = initialise_list_of_events()
+    list_of_classs = initialise_list_of_events('../events_config.json')
 
     classs = []
     p = []

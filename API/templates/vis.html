@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #ffffff;
+            background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+        }
+
+        .Visualiation-kit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .titles{
+            margin-right:220px;
+
+        }
+        .btn {
+            cursor: pointer;
+            height: 70px;
+            width: 70px;
+            font-family: 'Titillium Web', sans-serif;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+            margin: 5px;
+            transition: 1s;
+        }
+
+        .btn span {
+            width: 0px;
+            overflow: hidden;
+            transition: 1s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            width: 150px;
+            border-radius: 5px;
+        }
+
+        .btn:hover span {
+            padding: 2px;
+            width: max-content;
+        }
+
+        #pie svg {
+            fill: #1da1f2;
+        }
+
+        #bar svg {
+            fill: #0e76a8;
+        }
+
+        #github {
+            fill: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='titles'>
+        <h1>Visualiation Tools</h1>
+    </div>
+
+
+
+    <div class='Visualization-kit'>
+        <a href=pie>
+            <div class='btn flex-center' id="pie">
+                <img src="https://image.flaticon.com/icons/png/512/1270/1270041.png" width="35" height="35"
+                    viewBox="0 0 35 35"><span>Pie Chart</span>
+            </div>
+        </a>
+        <a href=bar>
+            <div class='btn flex-center' id="bar">
+                <img src="https://img-premium.flaticon.com/png/512/4829/premium/4829328.png?token=exp=1626097720~hmac=242379bda418e09e691b59e15d3e2b89"
+                    width="35" height="35" viewBox="0 0 35 35"><span>Bar Chart</span>
+            </div>
+        </a>
+        <a href=line>
+            <div class='btn flex-center' id="line">
+                <img src="https://img-premium.flaticon.com/png/512/4263/premium/4263994.png?token=exp=1626098147~hmac=82357c880f1fa0ddb3efc335a58f8dd6"
+                    width="35" height="35" viewBox="0 0 35 35"><span>Timestamp visualisation</span>
+            </div>
+        </a>
+        <a href=events>
+            <div class='btn flex-center' id="line">
+                <img src="https://image.flaticon.com/icons/png/512/930/930208.png"
+                    width="35" height="35" viewBox="0 0 35 35"><span>Display Data</span>
+            </div>
+        </a>
+    </div>
+
+</body>
+
+</html>
