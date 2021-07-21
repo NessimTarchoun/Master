@@ -8,15 +8,16 @@
 
   <style>
     canvas {
-    
-    padding: 0 0 0 0 ;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    
-}
+
+      padding: 0 0 0 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -93,46 +94,98 @@
       display: flex;
       justify-content: center;
       align-items: center;
-    }   
+    }
+    input, button{
+    margin: 0 auto;
+    border: 1px solid white;
+    border-radius: 10px;
+    }
+    .research{
+      display: center;
+      border: 0 px;
+      margin-top: 10 px;
+      border-radius: 10px;
+      width: 100px;
+      height: 40px;
+      background-color: white;
+    }
     
-    
+    .criterias{
+      display: center;
+      margin-top: 10 px;
+      border-radius: 10px;
+      width: 250px;
+      height: 30px;
+      background-color: white;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="grid-container">
 
-    <div class="gridy item1">  </div>
+    <div class="gridy item1">
+      <h3> Search </h3>
+      <CENTER>
+        <div style="padding: 30px">
+          <form action="/search" method=post>
+        <TABLE width=100%  align="center" >
+          <TR>
+            <TD  align="center">
+              <input  class ="criterias" type="text" placeholder=" class of the operation">
+            </TD>
 
-    <div class="gridy item2">
+            <TD align="center">
+              <input class ="criterias" type="text" placeholder=" Timestamp 1">
+
+            </TD>
+            <TD align="center">
+              <input class ="criterias" type="text" placeholder=" Timestamp 2">
+            </TD>
+          </TR>
+
+        </TABLE>
+      </div>
+      
+      <input class="research" type="submit" value= "Search"</input>
+    </form>
+    </CENTER>
+
+
+    </div>
+    
+
+
+    <div class="gridy item2" style="overflow-y: scroll" >
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-      <div class="container">
-        <h1>{{ title }}</h1>
+      <div class="container" >
+        
         <hr>
 
-        <table id="data" class="table table-striped" cellspacing="0" cellpadding="0" border="0">
-            <thead>
-                <tr>
-                    <th>Class of events</th>
-                    <th>Operation</th>
-                    <th>Timestamp</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in events %}
-                <tr>
-                    <td>{{ event[0] }}</td>
-                    <td>{{ event[1] }}</td>
-                    <td>{{ event[2] }}</td>
-                    <td>{{ event[3] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+        <table id="data" class="table table-striped" cellspacing="0" cellpadding="0" border="0"  >
+          <thead>
+            <tr>
+              <th>Class of events</th>
+              <th>Operation</th>
+              <th>Timestamp</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in events %}
+            <tr>
+              <td>{{ event[0] }}</td>
+              <td>{{ event[1] }}</td>
+              <td>{{ event[2] }}</td>
+              <td>{{ event[3] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
         </table>
-    </div>
+      </div>
     </div>
 
     <div class="gridy item3">
@@ -140,20 +193,19 @@
       <div class="container flex-center'">
         <canvas id="chart1" width="500" height="300"></canvas>
         <script>
-        var pieData = [
-            {% for item, pie_label, pie_colors in set %}
+         var pieData = [
+        {% for item, label, colors in set %}
           {
             value: {{item}},
-            label: "{{pie_label}}",
-            color: "{{pie_colors}}"
+            label: "{{label}}",
+            color : "{{colors}}"
           },
-          {% endfor %}
-        ];
-
+        {% endfor %}
+      ];
           // get bar chart canvas
           var mychart = document.getElementById("chart1").getContext("2d");
           steps = 10
-          max = {{max}}
+          max = {{ max }}
 
           // draw pie chart
           new Chart(document.getElementById("chart1").getContext("2d")).Pie(pieData);
@@ -162,85 +214,87 @@
       </div>
 
     </div>
+
     <div class="gridy item4">
 
       <div class="container flex-center'">
 
         <canvas id="chart2" width="800" height="600"></canvas>
-  
+
         <script>
           // bar chart data
           var barData = {
-            labels : [
+            labels: [
               {% for item in bar_labels %}
-               "{{ item }}",
-              {% endfor %}
+          "{{ item }}",
+            {% endfor %}
       ],
-    
-            datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              data : [
-                {% for item in bar_values %}
+
+          datasets: [{
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            data: [
+              {% for item in bar_values %}
                    "{{ item }}",
-                  {% endfor %}
+          {% endfor %}
           ]
               }
             ]
           }
-    
-         // get bar chart canvas
-         var mychart2 = document.getElementById("chart2").getContext("2d");
-    
-           steps = 10
-           max = 60
-    
-         // draw bar chart
-         new Chart(mychart2).Bar(barData, {
-           scaleOverride: true,
-           scaleSteps: steps,
-           scaleStepWidth: Math.ceil(max / steps),
-           scaleStartValue: 0,
-           scaleShowVerticalLines: true,
-           scaleShowGridLines : true,
-           barShowStroke : true,
-           scaleShowLabels: true
-           }
-         );
-    
+
+          // get bar chart canvas
+          var mychart2 = document.getElementById("chart2").getContext("2d");
+
+          steps = 10
+          max = 60
+
+          // draw bar chart
+          new Chart(mychart2).Bar(barData, {
+            scaleOverride: true,
+            scaleSteps: steps,
+            scaleStepWidth: Math.ceil(max / steps),
+            scaleStartValue: 0,
+            scaleShowVerticalLines: true,
+            scaleShowGridLines: true,
+            barShowStroke: true,
+            scaleShowLabels: true
+          }
+          );
+
         </script>
       </div>
     </div>
+
     <div class="gridy item5">
-        
-        <canvas id="chart3"  width="1200" height="550">
+
+      <canvas id="chart3" width="1200" height="550">
         <script>
-    
+
           // bar chart data
           var barData = {
-            labels : [
+            labels: [
               {% for item in line_labels %}
-                "{{ item }}",
-              {% endfor %}
+          "{{ item }}",
+            {% endfor %}
             ],
-    
-            datasets : [{
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              bezierCurve : false,
-              data : [
-          {% for item in line_values %}
+
+          datasets: [{
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            bezierCurve: false,
+            data: [
+              {% for item in line_values %}
                   {{ item }},
-                {% endfor %}]
+          {% endfor %}]
               }
       ]
           }
-    
+
           Chart.defaults.global.animationSteps = 2;
           Chart.defaults.global.tooltipYPadding = 16;
           Chart.defaults.global.tooltipCornerRadius = 0;
@@ -250,12 +304,12 @@
           Chart.defaults.global.responsive = false;
           Chart.defaults.global.scaleLineColor = "black";
           Chart.defaults.global.scaleFontSize = 16;
-    
+
           // get bar chart canvas
           var mychart3 = document.getElementById("chart3").getContext("2d");
-    
+
           steps = 10
-          max = {{line_max}}
+          max = {{ line_max }}
           // draw bar chart
           var LineChartDemo = new Chart(mychart3).Line(barData, {
             scaleOverride: true,
@@ -263,16 +317,17 @@
             scaleStepWidth: Math.ceil(max / steps),
             scaleStartValue: 0,
             scaleShowVerticalLines: true,
-            scaleShowGridLines : true,
-            barShowStroke : true,
+            scaleShowGridLines: true,
+            barShowStroke: true,
             scaleShowLabels: true,
             bezierCurve: false,
           });
-    
+
         </script>
-        </canvas>
-        </div>
+      </canvas>
     </div>
+
+  </div>
   </div>
 </body>
 

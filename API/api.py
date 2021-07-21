@@ -128,7 +128,9 @@ def welcome_page():
 
     # return render_template('./welcome_page.html', set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, bar_values=bar_values)
 
-    return render_template('./welcome_page.html',set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, bar_values=bar_values, events=decode_JSON_events('../events.json')[:8])
+    return render_template('./welcome_page.html',set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), 
+    line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, 
+    bar_values=bar_values, events=decode_JSON_events('../events.json'))
     
    # return render_template('./welcome_page.html', title='Occurence of Classes', line_max=17000, set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]))
 
