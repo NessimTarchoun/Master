@@ -1,16 +1,18 @@
 import sys
 import os
+
+from werkzeug.utils import redirect
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
 import flask
-from flask import request, render_template
+from flask import request, render_template, url_for
 import json
 from API.back_end import *
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-@app.route('/', methods=['GET'])
+"""@app.route('/', methods=['GET'])
 def home():
-    return(render_template("./index.html"))
+    return(render_template("./index.html"))"""
 
 def Data_in_table(*args):
     if len (args)==0:
@@ -20,8 +22,10 @@ def Data_in_table(*args):
     return render_template('./data_table.html', events=list_of_events)
 
 
-@app.route('/events', methods=['GET'])
-def api_searching_by_id():
+#@app.route('/events', methods=['GET','POST'])
+
+@app.route('/events9dom', methods=['GET'])
+def api_searching_by_ids():
     with open('../events.json') as json_file:
         events=json.load(json_file)
 
@@ -78,6 +82,8 @@ def api_searching_by_id():
         return render_template('./data_table.html', events=decode_JSON_events('../events.json'))
 
 
+
+
 @app.route('/pie')
 def pie():
     Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
@@ -103,21 +109,39 @@ def linechart():
     line_values=[events[str(i)]['timestamp'] for i in range (50)]
     return render_template('./line_chart.html', title='timestamp evolution', max= line_values[-1] ,labels=line_labels, values=line_values)
 
-
-@app.route('/welcome_page')
+@app.route('/', methods=["POST","GET"])
 def welcome_page():
+    t1=None
+    t2=None
+    classs=None
+    transaction=3*[None]
 
+    if request.method == "POST":
+        try:
+            classs=int(request.form["wanted_class"])
+        except:
+            classs=None
+        try:
+            t1=int(request.form["ts1"])
+        except:
+            t1=None
+        try:
+            t2=int(request.form["ts2"])
+        except:
+            t2=None
+        transaction=[classs,t1,t2]
+    #return(transaction)
     #-----------pie chart parametrs---------------------------
-    pie_Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
-    pie_labels=[pie_Data[i]['classs'] for i in range (len(pie_Data))]
-    pie_values=[pie_Data[i]['percentage'] for i in range (len(pie_Data))]
+    pie_Data= percentage_of_class(class_searched=None, t1=transaction[1], t2=transaction[2])
+    pie_labels=pie_Data.keys()
+    pie_values=pie_Data.values()
     pie_colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1","#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
     
     #-----------bar chart parametrs----------------------
 
-    Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
-    bar_labels=[Data[i]['classs'] for i in range (len(Data))]
-    bar_values=[Data[i]['percentage'] for i in range (len(Data))]
+    Data= percentage_of_class(class_searched=None, t1=transaction[1], t2=transaction[2])
+    bar_labels=pie_Data.keys()
+    bar_values=pie_Data.values()
     
     #-------------- line chart parametrs------------------------
     with open('../events.json') as json_file:
@@ -126,18 +150,19 @@ def welcome_page():
     line_values=[events[str(i)]['timestamp'] for i in range (50)]
     #return render_template('./welcome_page.html', max= line_values[-1] ,labels=line_labels, values=line_values)
 
+    events_to_consider= api_searching_by_id(classs, t1, t2)
+
     # return render_template('./welcome_page.html', set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, bar_values=bar_values)
 
     return render_template('./welcome_page.html',set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), 
     line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, 
-    bar_values=bar_values, events=decode_JSON_events('../events.json'))
+    bar_values=bar_values, events=events_to_consider)
     
    # return render_template('./welcome_page.html', title='Occurence of Classes', line_max=17000, set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]))
-
-
 
 @app.route('/visualization')
 def visualization():
     return(render_template('./vis.html',title='fgrefd'))
     
+        
 app.run()
