@@ -16,7 +16,7 @@ def type_of_operation(E):
         classs = 'costumised operations'
 
     else:
-        classs = typee = "indefined type of event"
+        classs = typee = "undefined type of event"
 
     return(classs, typee)
 
