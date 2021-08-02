@@ -8,7 +8,7 @@ import unittest
 
 
 class ParserTestSuite(unittest.TestCase):
-    """ Test cases regaring event log parser """
+    """ Test cases for event log parser """
 
     def test_simple_test(self):
         buff = read_data("tests/event_stream1.bin")

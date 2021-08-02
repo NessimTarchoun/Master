@@ -19,3 +19,4 @@ def read_data(file_path):
     with open(file_path, 'rb') as file:
         bufferr = file.read()
     return(bufferr)
+

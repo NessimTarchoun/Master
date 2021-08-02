@@ -1,8 +1,6 @@
 import sys
 import os
 import json
-from flask import app
-import numpy as np
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),os.path.pardir)))
 from event_parser.parsers import *
@@ -33,7 +31,6 @@ def write_operations_in_json_file(binary_file_path, json_file_name):
 
 
 def occurence_of_event(filename, classs=None, operation=None, ts1=None, ts2=None):
-    from tabulate import tabulate 
     suppress_qt_warnings()
     with open(filename) as json_file:
         events=json.load(json_file)
@@ -61,21 +58,23 @@ def occurence_of_event(filename, classs=None, operation=None, ts1=None, ts2=None
 
 def debugging_data(filename):
     from tabulate import tabulate
-
-    list_of_dbg_data=[]
-    with open(filename) as json_file:
-        events=json.load(json_file)
-    for i in range (len(events)):
-        if events[str(i)]['data']!= "":
-            list_of_dbg_data.append([i,events[str(i)]['data']])
-    print(
-        tabulate(
-            list_of_dbg_data,
-            headers=[
-                "index of debugging event",
-                "data"],
-            tablefmt="pretty"))
-    return(list_of_dbg_data)
+    try:
+        list_of_dbg_data=[]
+        with open(filename) as json_file:
+            events=json.load(json_file)
+        for i in range (len(events)):
+            if events[str(i)]['data']!= "":
+                list_of_dbg_data.append([i,events[str(i)]['data']])
+        """print(
+            tabulate(
+                list_of_dbg_data,
+                headers=[
+                    "index of debugging event",
+                    "data"],
+                tablefmt="pretty"))"""
+        return(list_of_dbg_data)
+    except:
+        return('Error while searching for Debugging Event/data')
 
 def min (filepath, *args):
     with open(filepath) as json_file:
@@ -163,7 +162,6 @@ def api_searching_by_id(wanted_class=None, timestamp1=None, timestamp2=None):
         return (id_list)
     
     if timestamp2!=None and timestamp1!=None:
-    #elif 'ts1' in request.args and 'ts2' in request.args:
         ts_list=[]
         for i in range (len(events)):
             if ((events[str(i)]['timestamp']) >= timestamp1) and((events[str(i)]['timestamp']) <= timestamp2) :
@@ -180,9 +178,28 @@ def api_searching_by_id(wanted_class=None, timestamp1=None, timestamp2=None):
     else:
         return (decode_JSON_events('../events.json'))
 
-def percentage_of_class(class_searched=None, t1=None, t2=None):
+def store_search_form(transaction):  
+    if transaction[1]==None:
+        ts1="Timestamp1"
+    else:
+        ts1=transaction[1]
+    
+    if transaction[2]==None:
+        ts2="Timestamp2"
+    else:
+        ts2=transaction[2]
+
+    if transaction[0]==None:
+        c= "All Classes"
+    else:
+        list_of_classs = initialise_list_of_events('../events_config.json')
+        c= str(transaction[0]) + ": "+ list_of_classs[str(transaction[0])]['designation']
+    return([c,ts1,ts2])
+
+
+def percentage_of_class(filepath="../events_config.json",class_searched=None, t1=None, t2=None):
     events=api_searching_by_id(wanted_class=class_searched, timestamp1=t1, timestamp2=t2)
-    list_of_classs=(initialise_list_of_events('../events_config.json'))
+    list_of_classs=(initialise_list_of_events("../events_config.json"))
     classs=[]
     appearance={}
     percentages={}
@@ -204,6 +221,7 @@ def percentage_of_class(class_searched=None, t1=None, t2=None):
         percentages[i]=round(appearance[i]/len(events)*100,2)
 
     return(percentages)
+
 #print(percentage_of_class(t1=1,t2=2100000000000000))
 #min('../events.json',12)
 #max('../events.json',8)

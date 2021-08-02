@@ -24,7 +24,7 @@ def Data_in_table(*args):
 
 #@app.route('/events', methods=['GET','POST'])
 
-@app.route('/events9dom', methods=['GET'])
+@app.route('/events_old_version', methods=['GET'])
 def api_searching_by_ids():
     with open('../events.json') as json_file:
         events=json.load(json_file)
@@ -81,23 +81,20 @@ def api_searching_by_ids():
     else:
         return render_template('./data_table.html', events=decode_JSON_events('../events.json'))
 
-
-
-
 @app.route('/pie')
 def pie():
-    Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
-    labels=[Data[i]['classs'] for i in range (len(Data))]
-    values=[Data[i]['percentage'] for i in range (len(Data))]
+    Data= percentage_of_class(class_searched=None, t1=None, t2=None)
+    labels=Data.keys()
+    values=Data.values()
     colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA","#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1","#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    
     return render_template('./pie_chart.html', title='Occurence of Classes', max=17000, set=zip(values, labels, colors[:len(values)]))
 
 @app.route('/bar')
 def bar():
-    Data= (occurence_of_classes('../events.json', '../events_config.json', ts1=None, ts2=None))
-    labels=[Data[i]['classs'] for i in range (len(Data))]
-
-    values=[Data[i]['percentage'] for i in range (len(Data))]
+    Data= percentage_of_class(class_searched=None, t1=None, t2=None)
+    labels=Data.keys()
+    values=Data.values()
     return render_template('./bar_chart.html', title='Occurence of Classes', max=60, labels=labels, values=values)
 
 
@@ -139,7 +136,6 @@ def welcome_page():
     
     #-----------bar chart parametrs----------------------
 
-    Data= percentage_of_class(class_searched=None, t1=transaction[1], t2=transaction[2])
     bar_labels=pie_Data.keys()
     bar_values=pie_Data.values()
     
@@ -151,12 +147,12 @@ def welcome_page():
     #return render_template('./welcome_page.html', max= line_values[-1] ,labels=line_labels, values=line_values)
 
     events_to_consider= api_searching_by_id(classs, t1, t2)
-
+    print(type(events_to_consider[0][3]))
     # return render_template('./welcome_page.html', set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, bar_values=bar_values)
-
+    Form_data=store_search_form(transaction)
     return render_template('./welcome_page.html',set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]), 
     line_max= line_values[-1] ,line_labels=line_labels, line_values=line_values, bar_labels=bar_labels, 
-    bar_values=bar_values, events=events_to_consider)
+    bar_values=bar_values, events=events_to_consider,c=Form_data[0], tms1=Form_data[1], tms2=Form_data[2])
     
    # return render_template('./welcome_page.html', title='Occurence of Classes', line_max=17000, set=zip(pie_values, pie_labels, pie_colors[:len(pie_values)]))
 

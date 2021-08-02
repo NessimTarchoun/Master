@@ -66,8 +66,7 @@ def extract_data(buffer):
                 i += 8
 
         list_of_events.append(Event(b1 // 16, b1 % 16, timestamp, data))
-        # except:
-     #   pass
+       
     list_of_events=sorted(list_of_events, key= lambda i: i.t)
     return(list_of_events)
 
@@ -125,7 +124,6 @@ def pie_appearancee_of_operations():
         p.append(percentage_of_class(i))
     classs.append("costumer events")
     p.append(1 - sum(p))
-    # y = np.array(p)
     plt.figure(figsize=(20, 10))
     plt.pie(p, labels=classs, pctdistance=0.7,
             autopct=lambda p: str(round(p, 2)) + '%',)
@@ -150,7 +148,6 @@ def visualize_timestamps_of_operations(file_path):
                  marker='o',
                  color=list_of_classes[str(list_of_events[i].c)]['color'])
     plt.ylabel("t")
-    # plt.ylim([4822678189205000 , 4822678189205400 ])
 
     plt.xlabel("Number of operation")
     plt.grid()

@@ -1,0 +1,26 @@
+{
+    "0":{
+        "class_of_operation":6,
+        "operation":12,
+        "timestamp":4822678189205026,
+        "data":2
+    },
+    "1":{
+        "class_of_operation":1,
+        "operation":1,
+        "timestamp":4822678189205094,
+        "data":""
+    },
+    "2":{
+        "class_of_operation":6,
+        "operation":1,
+        "timestamp":4822678189205162,
+        "data":257
+    },
+    "3":{
+        "class_of_operation":3,
+        "operation":2,
+        "timestamp":4822678189205247,
+        "data":""
+    }
+}
